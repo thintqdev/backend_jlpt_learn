@@ -12,6 +12,7 @@ import { GrammarModule } from './grammar/grammar.module';
 import { GrammarUsageModule } from './grammar_usage/grammar_usage.module';
 import { GrammarExampleModule } from './grammar_example/grammar_example.module';
 import { QuestionModule } from './question/question.module';
+import { ConversationModule } from './conversation/conversation.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { QuestionModule } from './question/question.module';
     GrammarUsageModule,
     GrammarExampleModule,
     QuestionModule,
+    ConversationModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

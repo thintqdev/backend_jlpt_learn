@@ -3,6 +3,7 @@ import { GrammarService } from './grammar.service';
 import { Grammar } from '../models/grammar.model';
 import { CreateGrammarInput } from './dto/create-grammar.input';
 import { UpdateGrammarInput } from './dto/update-grammar.input';
+import { FileUpload, GraphQLUpload } from 'graphql-upload-ts';
 
 @Resolver(() => Grammar)
 export class GrammarResolver {
@@ -34,5 +35,12 @@ export class GrammarResolver {
   @Mutation(() => Grammar)
   async removeGrammar(@Args('id', { type: () => Int }) id: number) {
     return this.grammarService.remove(id);
+  }
+
+  @Mutation(() => Boolean)
+  importGrammarCsv(
+    @Args({ name: 'file', type: () => GraphQLUpload }) file: FileUpload,
+  ): Promise<boolean> {
+    return this.grammarService.importFromCsv(file);
   }
 }

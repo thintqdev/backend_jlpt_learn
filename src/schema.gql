@@ -109,6 +109,7 @@ type Mutation {
   createGrammar(input: CreateGrammarInput!): Grammar!
   updateGrammar(id: Int!, input: UpdateGrammarInput!): Grammar!
   removeGrammar(id: Int!): Grammar!
+  importGrammarCsv(file: Upload!): Boolean!
   createGrammarUsage(input: CreateGrammarUsageInput!): GrammarUsage!
   updateGrammarUsage(id: Int!, input: UpdateGrammarUsageInput!): GrammarUsage!
   removeGrammarUsage(id: Int!): GrammarUsage!
