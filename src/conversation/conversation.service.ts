@@ -1,15 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConversationInput } from './dto/create-conversation.input';
 import { UpdateConversationInput } from './dto/update-conversation.input';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ConversationService {
+  constructor(private prisma: PrismaService) {}
+
   create(createConversationInput: CreateConversationInput) {
     return 'This action adds a new conversation';
   }
 
   findAll() {
-    return `This action returns all conversation`;
+    return this.prisma.conversation.findMany()
   }
 
   findOne(id: number) {
@@ -22,5 +25,19 @@ export class ConversationService {
 
   remove(id: number) {
     return `This action removes a #${id} conversation`;
+  }
+
+  async createJson(input: string) {
+    const data = JSON.parse(input);
+    await this.prisma.conversation.createMany({
+      data: data.map(item => ({
+        title: item.title,
+        level: item.level,
+        category: item.category,
+        duration: item.duration,
+        conversation: item?.conversation || null,
+      })),
+    });
+    return true;
   }
 }

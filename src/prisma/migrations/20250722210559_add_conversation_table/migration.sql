@@ -8,12 +8,12 @@
 DROP TABLE "Conversation";
 
 -- CreateTable
-CREATE TABLE "conservations" (
+CREATE TABLE "conversations" (
     "id" SERIAL NOT NULL,
     "level" "EnumLevel" NOT NULL,
     "category" TEXT NOT NULL,
     "duration" TEXT,
     "conversation" JSONB NOT NULL,
 
-    CONSTRAINT "conservations_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "conversations_pkey" PRIMARY KEY ("id")
 );

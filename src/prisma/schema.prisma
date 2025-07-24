@@ -110,11 +110,12 @@ model Question {
 
 model Conversation {
   id            Int          @id @default(autoincrement())
+  title         String
   level         EnumLevel
   category      String
   duration      String?
   conversation  Json
 
-  @@map("conservations")
+  @@map("conversations")
 }
 
