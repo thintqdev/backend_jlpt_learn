@@ -57,7 +57,13 @@ export async function csvToGrammarJson(
 
         const grammar = grammarMap.get(grammarKey)!;
 
-        let usage = grammar.usages.find((u) => u.structure === rawStructure);
+        // So sánh toàn bộ structure + meaning + note để xác định usage
+        let usage = grammar.usages.find(
+          (u) =>
+            u.structure === rawStructure &&
+            u.meaning === rawMeaning &&
+            (u.note || '') === (rawNote || ''),
+        );
 
         if (!usage) {
           usage = {
@@ -79,3 +85,4 @@ export async function csvToGrammarJson(
       });
   });
 }
+
