@@ -72,6 +72,19 @@ type QuestionPagination {
   hasPrevPage: Boolean!
 }
 
+type Conversation {
+  id: Int!
+  level: String!
+  category: String!
+  duration: String
+  conversation: [Sentence!]!
+}
+
+type Sentence {
+  speaker: String!
+  text: String!
+}
+
 type Query {
   categories: CategoryListResult!
   category(id: Int!): Category!
@@ -88,6 +101,7 @@ type Query {
   questions(page: Int, pageSize: Int): QuestionPagination!
   question(id: Int!): Question!
   getRandomQuestion(level: EnumLevel!, count: Int!): [Question!]!
+  conversation(id: Int!): Conversation!
 }
 
 enum EnumLevel {
@@ -120,6 +134,9 @@ type Mutation {
   updateQuestion(updateQuestionInput: UpdateQuestionInput!): Question!
   removeQuestion(id: Int!): Question!
   importQuestionCsv(file: Upload!): Boolean!
+  createConversation(createConversationInput: CreateConversationInput!): Conversation!
+  updateConversation(updateConversationInput: UpdateConversationInput!): Conversation!
+  removeConversation(id: Int!): Conversation!
 }
 
 input CreateCategoryInput {
@@ -213,5 +230,16 @@ input UpdateQuestionInput {
   correctAnswer: Int
   level: EnumLevel
   explanation: String
+  id: Int!
+}
+
+input CreateConversationInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateConversationInput {
+  """Example field (placeholder)"""
+  exampleField: Int
   id: Int!
 }

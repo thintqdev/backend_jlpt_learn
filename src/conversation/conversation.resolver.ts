@@ -1,15 +1,18 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { ConversationService } from './conversation.service';
-import { Conversation } from './entities/conversation.entity';
 import { CreateConversationInput } from './dto/create-conversation.input';
 import { UpdateConversationInput } from './dto/update-conversation.input';
+import { Conversation } from 'src/models/convervation.model';
 
 @Resolver(() => Conversation)
 export class ConversationResolver {
   constructor(private readonly conversationService: ConversationService) {}
 
   @Mutation(() => Conversation)
-  createConversation(@Args('createConversationInput') createConversationInput: CreateConversationInput) {
+  createConversation(
+    @Args('createConversationInput')
+    createConversationInput: CreateConversationInput,
+  ) {
     return this.conversationService.create(createConversationInput);
   }
 
@@ -24,8 +27,14 @@ export class ConversationResolver {
   }
 
   @Mutation(() => Conversation)
-  updateConversation(@Args('updateConversationInput') updateConversationInput: UpdateConversationInput) {
-    return this.conversationService.update(updateConversationInput.id, updateConversationInput);
+  updateConversation(
+    @Args('updateConversationInput')
+    updateConversationInput: UpdateConversationInput,
+  ) {
+    return this.conversationService.update(
+      updateConversationInput.id,
+      updateConversationInput,
+    );
   }
 
   @Mutation(() => Conversation)
