@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 @ObjectType()
-export class Conservation {
+export class Conversation {
   @Field(() => Int)
   id: number;
 
@@ -15,7 +15,7 @@ export class Conservation {
   duration?: string;
 
   @Field(() => [Sentence])
-  conservation: Sentence[];
+  conversation: Sentence[];
 }
 
 @ObjectType()
