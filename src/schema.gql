@@ -83,13 +83,13 @@ type Conversation {
   level: String!
   category: String!
   duration: String
-  conversation: [Sentence!]!
+  conversation: JSON!
 }
 
-type Sentence {
-  speaker: String!
-  text: String!
-}
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type Query {
   categories(page: Int, pageSize: Int): CategoryListResult!
@@ -107,7 +107,7 @@ type Query {
   questions(page: Int, pageSize: Int): QuestionPagination!
   question(id: Int!): Question!
   getRandomQuestion(level: EnumLevel!, count: Int!): [Question!]!
-  conversations: [Conversation!]!
+  conversations(search: String, sort: String, page: Int, pageSize: Int): [Conversation!]!
   conversation(id: Int!): Conversation!
 }
 
@@ -254,5 +254,5 @@ input UpdateConversationInput {
 }
 
 input CreateConversationJsonInput {
-  data: String!
+  input: String!
 }
