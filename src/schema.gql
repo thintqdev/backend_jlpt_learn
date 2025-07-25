@@ -54,6 +54,11 @@ type Grammar {
   usages: [GrammarUsage!]!
 }
 
+type GrammarListResult {
+  items: [Grammar!]!
+  count: Int!
+}
+
 type Question {
   id: Int!
   question: String!
@@ -87,13 +92,13 @@ type Sentence {
 }
 
 type Query {
-  categories: CategoryListResult!
+  categories(page: Int, pageSize: Int): CategoryListResult!
   category(id: Int!): Category!
   vocabularies: [Vocabulary!]!
   vocabulariesByConditions(categoryIds: [Int!]): [Vocabulary!]!
   vocabulariesByCategory(categoryId: Int!): [Vocabulary!]!
   vocabulary(id: Int!): Vocabulary!
-  grammars: [Grammar!]!
+  grammars(page: Int, pageSize: Int, search: String, sortBy: String, sortOrder: String): GrammarListResult!
   grammar(id: Int!): Grammar
   grammarUsages: [GrammarUsage!]!
   grammarUsage(id: Int!): GrammarUsage
@@ -126,6 +131,7 @@ type Mutation {
   updateGrammar(id: Int!, input: UpdateGrammarInput!): Grammar!
   removeGrammar(id: Int!): Grammar!
   importGrammarCsv(file: Upload!): Boolean!
+  importGrammarJson(input: String!): Boolean!
   createGrammarUsage(input: CreateGrammarUsageInput!): GrammarUsage!
   updateGrammarUsage(id: Int!, input: UpdateGrammarUsageInput!): GrammarUsage!
   removeGrammarUsage(id: Int!): GrammarUsage!

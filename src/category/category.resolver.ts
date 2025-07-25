@@ -27,11 +27,13 @@ export class CategoryResolver {
   }
 
   @Query(() => CategoryListResult, { name: 'categories' })
-  async findAll() {
-    const items = await this.categoryService.findAll();
-    const count = items.length;
-    return { items, count };
-  }
+  async findAll(
+  @Args('page', { type: () => Number, nullable: true }) page?: number,
+  @Args('pageSize', { type: () => Number, nullable: true }) pageSize?: number,
+) {
+  const { items, count } = await this.categoryService.findAll(page, pageSize);
+  return { items, count };
+}
 
   @Query(() => Category, { name: 'category' })
   findOne(@Args('id', { type: () => Int }) id: number) {

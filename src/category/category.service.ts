@@ -11,8 +11,21 @@ export class CategoryService {
     return this.prisma.category.create({ data });
   }
 
-  findAll() {
-    return this.prisma.category.findMany();
+  async findAll(page?: number, pageSize?: number) {
+    if (!page || !pageSize) {
+      const items = await this.prisma.category.findMany();
+      return { items, count: items.length };
+    }
+    // Phân trang
+    const skip = (page - 1) * pageSize;
+    const [items, count] = await Promise.all([
+      this.prisma.category.findMany({
+        skip,
+        take: pageSize,
+      }),
+      this.prisma.category.count(),
+    ]);
+    return { items, count };
   }
 
   findOne(id: number) {
