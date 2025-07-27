@@ -14,7 +14,7 @@ export class GrammarService {
     pageSize?: number,
     search?: string,
     sortBy?: string,
-    sortOrder: 'asc' | 'desc' = 'asc'
+    sortOrder: 'asc' | 'desc' = 'asc',
   ) {
     const where: any = search
       ? {
@@ -25,13 +25,10 @@ export class GrammarService {
           ],
         }
       : {};
-  
+
     // Xây dựng điều kiện sort
-    const orderBy =
-      sortBy
-        ? { [sortBy]: sortOrder }
-        : { [title]: 'desc' };
-  
+    const orderBy = sortBy ? { [sortBy]: sortOrder } : { [title]: 'desc' };
+
     // Không phân trang
     if (!page || !pageSize) {
       const items = await this.prisma.grammar.findMany({
@@ -47,7 +44,7 @@ export class GrammarService {
       });
       return { items, count: items.length };
     }
-  
+
     const skip = (page - 1) * pageSize;
     const [items, count] = await Promise.all([
       this.prisma.grammar.findMany({
@@ -100,14 +97,13 @@ export class GrammarService {
     });
   }
 
-
   async importFromCsv(file: FileUpload): Promise<boolean> {
     const { createReadStream, filename } = file;
     console.log('Importing:', filename);
-    console.log('Time', Date.now())
+    console.log('Time', Date.now());
 
     const grammars = await csvToGrammarJson(createReadStream());
-    console.log(JSON.stringify(grammars))
+    console.log(JSON.stringify(grammars));
 
     for (const grammar of grammars) {
       const createdGrammar = await this.prisma.grammar.create({
@@ -179,7 +175,6 @@ export class GrammarService {
         }
       }
     }
-    
     return true;
   }
 }

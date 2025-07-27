@@ -123,6 +123,7 @@ type Mutation {
   createCategory(input: CreateCategoryInput!): Category!
   updateCategory(input: UpdateCategoryInput!): Category!
   removeCategory(id: Int!): Category!
+  importVocabularyJson(input: String!): Boolean!
   createVocabulary(input: CreateVocabularyInput!): Vocabulary!
   removeVocabulary(id: Int!): Vocabulary!
   importVocabularyCsv(file: Upload!, categoryId: Int!): Boolean!

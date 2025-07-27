@@ -8,7 +8,7 @@ import { GrammarListResult } from 'src/models/grammar-list-result.model';
 
 @Resolver(() => Grammar)
 export class GrammarResolver {
-  constructor(private readonly grammarService: GrammarService) { }
+  constructor(private readonly grammarService: GrammarService) {}
 
   @Query(() => GrammarListResult, { name: 'grammars' })
   async grammars(
@@ -16,9 +16,16 @@ export class GrammarResolver {
     @Args('pageSize', { type: () => Number, nullable: true }) pageSize?: number,
     @Args('search', { type: () => String, nullable: true }) search?: string,
     @Args('sortBy', { type: () => String, nullable: true }) sortBy?: string,
-    @Args('sortOrder', { type: () => String, nullable: true }) sortOrder?: 'asc' | 'desc',
+    @Args('sortOrder', { type: () => String, nullable: true })
+    sortOrder?: 'asc' | 'desc',
   ) {
-    return this.grammarService.findAll(page, pageSize, search, sortBy, sortOrder);
+    return this.grammarService.findAll(
+      page,
+      pageSize,
+      search,
+      sortBy,
+      sortOrder,
+    );
   }
 
   @Query(() => Grammar, { nullable: true })
